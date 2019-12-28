@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "ParaTypeMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .fitscreen-height-sec {
+        margin-bottom: 85px;
+    }
+</style>
+
+<div class="fitscreen-height-sec">
+    <div class="row stn-serch-bdr-btm align-items-center border-bottom-0">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="src-page-title">
+                        <h5>Parameter Type Code</h5>
+                    </div>
+                    <div class="col crt-wet-frmto">
+                        <input type="text" id="txtParaTypeCode" class="form-style bg-white" placeholder="Enter Parameter Type Code">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="src-page-title">
+                        <h5>Parameter Type Name</h5>
+                    </div>
+                    <div class="col crt-wet-frmto">
+                        <input type="text" id="txtParaTypeName" class="form-style bg-white" placeholder="Parameter Type Name">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="src-page-title">
+                        <h5>Sequence Number</h5>
+                    </div>
+
+                    <div class="col crt-wet-frmto">
+                        <input type="text" id="txtSeqNo" class="form-style bg-white" placeholder="Enter Sequence Number">
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="src-page-title">
+                        <h5>Remark</h5>
+                    </div>
+
+                    <div class="col crt-wet-frmto">
+                        <input type="text" id="txtRemark" class="form-style bg-white" placeholder="Enter Remark">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="src-page-title">
+                    </div>
+
+                    <label class="cust-chk-bx float-right ml-auto">
+                        <input type="checkbox" id="chkIsActive">
+                        IsActive
+                    <span class="cust-chkmark"></span>
+                    </label>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="src-fxd-btn">
+        <ul class="d-flex flex-md-row-reverse">
+
+
+            <li>
+                <a href="">
+                    <img src="~/Content/images/refresh.svg" alt="">
+                    <span>Clear</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="FN_ParameterType_InsertUpdate();">
+                    <img src="~/Content/images/magnifying-glass.svg" alt="">
+                    <span>save</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-12 p-0">
+        <div class="main-dt-table">
+            <div class="row m-0 justify-content-center align-items-center">
+            </div>
+            <table id="Stockinvetorypage" class="display">
+                <thead>
+                    <tr>
+                        <th>sr.no</th>
+                        <th>ParameterTypeCode</th>
+                        <th>ParameterTypeName</th>
+                        <th>ISActive</th>
+                        <th>SequenceNo</th>
+                        <th>Remark</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+
+    function FN_ParameterType_InsertUpdate() {
+        debugger
+        var obj = {};
+        var Active = false;
+
+        if ($('#chkIsActive').is(":checked")) {
+            Active = true;
+        }
+
+        obj = {
+            ParameterType_ID: 0,
+            ParameterTypeCode: $("#txtParaTypeCode").val(),
+            ParameterTypeName: $("#txtParaTypeName").val(),
+            Remark: $("#txtRemark").val(),
+            SequenceNo: $("#txtSeqNo").val(),
+            ISActive: Active
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SaveUpdateDeleteParameterType", "ParameterType")',
+            data: JSON.stringify({ model: obj,Action:'SAVE' }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger
+            },
+            error: function (data) {
+                debugger
+            }
+        });
+
+    }
+
+</script>
